@@ -6,7 +6,7 @@ import { transformer } from "../shared/transformer.ts";
 
 export const queryClient = new QueryClient();
 
-const trpcClient = createTRPCClient<AppRouter>({
+export const trpcClient = createTRPCClient<AppRouter>({
   links: [httpLink({ url: "http://localhost:3001", transformer })],
 });
 

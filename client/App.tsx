@@ -1,12 +1,15 @@
+import React from 'react';
 import { useQuery } from "@tanstack/react-query";
 import logo from "/silk-armis-logo.png";
 import { trpc } from "./trpc.ts";
+import Dashboard from './components/Dashboard';
 
 function App() {
   const serverTime = useQuery(trpc.utils.getServerTime.queryOptions());
   const tables = useQuery(trpc.utils.getDbTables.queryOptions());
 
   return (
+    <div>
     <div
       style={{
         height: "100vh",
@@ -33,8 +36,12 @@ function App() {
             ? "loading..."
             : tables.data.join(", ")}
         </strong>
-      </p>
+      </p> 
     </div>
+      <div>
+        <Dashboard />
+      </div>
+    </div>  
   );
 }
 

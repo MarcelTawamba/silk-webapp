@@ -1,4 +1,4 @@
-interface GroupedFinding {
+export interface GroupedFinding {
   id: number;
   groupingType: string;
   groupingKey: string;
@@ -13,7 +13,7 @@ interface GroupedFinding {
   progress: number;
 }
 
-interface RawFinding {
+export interface RawFinding {
   id: number;
   groupedFindingId: number;
   sourceSecurityToolName: string;
