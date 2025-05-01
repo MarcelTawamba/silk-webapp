@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import type { GroupedFinding } from '../../server/types.js'; // Adjust path if needed
-import RawFindingsDetails from './RawFindingsDetails'; // Adjust path if needed
+import type { GroupedFinding } from '../../server/types.js'; 
+import RawFindingsDetails from './RawFindingsDetails'; 
 
 interface GroupedFindingsTableProps {
   data: GroupedFinding[];
@@ -20,9 +20,9 @@ const GroupedFindingsTable: React.FC<GroupedFindingsTableProps> = ({ data, isLoa
   if (!data || data.length === 0) return <div>No grouped findings data available.</div>;
 
   const tableStyle: React.CSSProperties = { width: '100%', borderCollapse: 'collapse', marginTop: '20px' };
-  const thStyle: React.CSSProperties = { border: '1px solid #ddd', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' };
+  const thStyle: React.CSSProperties = { border: '1px solid #ddd', padding: '10px 8px', textAlign: 'left', backgroundColor: '#e9ecef', fontWeight: '600' }; // Slightly darker header, more padding
   const tdStyle: React.CSSProperties = { border: '1px solid #ddd', padding: '8px' };
-  const clickableRowStyle: React.CSSProperties = { cursor: 'pointer' };
+  const clickableRowBaseStyle: React.CSSProperties = { cursor: 'pointer', transition: 'background-color 0.2s ease' };
 
   return (
     <div>
@@ -39,11 +39,20 @@ const GroupedFindingsTable: React.FC<GroupedFindingsTableProps> = ({ data, isLoa
           </tr>
         </thead>
         <tbody>
-          {data.map((finding) => (
+          {data.map((finding, index) => {
+            const isExpanded = expandedRowId === finding.id;
+            const isEvenRow = index % 2 === 0;
+
+            const rowStyle: React.CSSProperties = {
+              ...clickableRowBaseStyle,
+              backgroundColor: isExpanded ? '#d1ecf1' : (isEvenRow ? '#f8f9fa' : '#ffffff'), // Light blue when expanded, alternating otherwise
+            };
+
+            return (
             <React.Fragment key={finding.id}>
               <tr
                 onClick={() => handleRowClick(finding.id)}
-                style={{ ...clickableRowStyle, ...(expandedRowId === finding.id ? { backgroundColor: '#e9ecef' } : {}) }}
+                style={rowStyle}
                 title="Click to expand/collapse raw findings"
               >
                 <td style={tdStyle}>{finding.id}</td>
@@ -57,7 +66,7 @@ const GroupedFindingsTable: React.FC<GroupedFindingsTableProps> = ({ data, isLoa
                 <RawFindingsDetails groupedFindingId={finding.id} />
               )}
             </React.Fragment>
-          ))}
+          )})}
         </tbody>
       </table>
     </div>
