@@ -1,7 +1,7 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query'; // Import useQuery
-import { trpc } from '../trpc'; // Keep trpc import for queryOptions
-import type { RawFinding } from '../../server/types.js'; // Adjust path if needed
+import { useQuery } from '@tanstack/react-query';
+import { trpc } from '../trpc';
+import type { RawFinding } from '../../server/types.js';
 
 interface RawFindingsDetailsProps {
   groupedFindingId: number;
@@ -12,7 +12,7 @@ const RawFindingsDetails: React.FC<RawFindingsDetailsProps> = ({ groupedFindingI
     trpc.findings.getRawFindingsByGroupId.queryOptions(
     { groupedFindingId },
     {
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000, // 5 minutes stale time
       refetchOnWindowFocus: false,
     }
   ));
@@ -24,10 +24,10 @@ const RawFindingsDetails: React.FC<RawFindingsDetailsProps> = ({ groupedFindingI
   if (isError) return <tr><td colSpan={6}>Error loading raw findings: {error?.message}</td></tr>;
   if (!rawFindings || rawFindings.length === 0) return <tr><td colSpan={6}>No raw findings associated with this group.</td></tr>;
 
-  // Simple display for raw findings - enhance as needed
+  // display raw findings
   return (
     <tr>
-      <td colSpan={6} style={{ paddingLeft: '30px', backgroundColor: '#f8f9fa' }}> {/* Indent and slightly different background */}
+      <td colSpan={6} style={{ paddingLeft: '30px', backgroundColor: '#f8f9fa' }}>
         <h4>Raw Findings:</h4>
         <ul>
           {rawFindings.map((finding: RawFinding) => (

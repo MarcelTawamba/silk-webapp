@@ -19,7 +19,6 @@ const GroupedFindingsTable: React.FC<GroupedFindingsTableProps> = ({ data, isLoa
   if (isError) return <div>Error loading table data.</div>;
   if (!data || data.length === 0) return <div>No grouped findings data available.</div>;
 
-  // Basic table styling (consider using a CSS framework or styled-components)
   const tableStyle: React.CSSProperties = { width: '100%', borderCollapse: 'collapse', marginTop: '20px' };
   const thStyle: React.CSSProperties = { border: '1px solid #ddd', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' };
   const tdStyle: React.CSSProperties = { border: '1px solid #ddd', padding: '8px' };
@@ -53,7 +52,6 @@ const GroupedFindingsTable: React.FC<GroupedFindingsTableProps> = ({ data, isLoa
                 <td style={tdStyle}>{finding.status}</td>
                 <td style={tdStyle}>{finding.owner}</td>
                 <td style={tdStyle}>{finding.sla}</td>
-                {/* Add more cells corresponding to headers */}
               </tr>
               {expandedRowId === finding.id && (
                 <RawFindingsDetails groupedFindingId={finding.id} />
